@@ -7,6 +7,12 @@ class llm:
         self.client = Mistral(api_key=api_key)
     
     def generate(self, prompt):
+        """Generates a response from the LLM based on the given prompt.
+        Args:
+            prompt (str): The input prompt to generate a response for.
+        Returns:
+            str: The generated response from the LLM.
+        """
         chat_response = self.client.chat.complete(
             model = self.model,
             messages = [
