@@ -31,7 +31,7 @@ class llm:
         self.context.append({"role": "assistant", "content": chat_response.choices[0].message.content})
         return chat_response.choices[0].message.content
 
-    def add_to_context(self, role, content):
+    def add_to_context(self, content: str, role: str = 'user') -> None:
         """Adds contents to the context.
         Args:
             role (str): the role of the message(can be: "user","system","assistant").
