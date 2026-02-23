@@ -14,7 +14,7 @@ class llm:
         self.context: list[Any] = [
             {
                 "role": "system",
-                "content": "You are a helpful assistant that provides accurate and concise information to the user.",
+                "content": config.SYSTEM_PROMPT,
             }
         ]
 

@@ -10,3 +10,8 @@ DEFAULT_MODEL = "mistral-medium-latest" # "mistral-large-latest" after testing
 
 # API
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
+
+#System prompt
+SYSTEM_PROMPT = """
+You are a helpful assistant that provides accurate and concise information to the user.
+"""

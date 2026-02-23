@@ -4,6 +4,7 @@ This is the main entry point for the application. It initializes the assistant, 
 import config
 from llm import llm
 import json
+import os
 
 assistant = llm(model=config.DEFAULT_MODEL)
 
@@ -25,6 +26,13 @@ else:
 
 while True:
     prompt = input("> ")
+    if prompt.startswith("/clear"):
+        print("clearing context...")
+        assistant.context = [{
+            "role": "system",
+            "content": config.SYSTEM_PROMPT
+        }]
+
     if prompt.startswith("/exit") or prompt.startswith("/bye"):
         print("exiting...")
         break
