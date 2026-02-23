@@ -2,6 +2,7 @@
 This module defines the llm class, which serves as a wrapper around the Mistral API for generating responses based on prompts. It provides a simple interface for interacting with the Mistral language model.
 """
 import config
+import json
 from typing import Any
 from mistralai import Mistral
 
@@ -43,8 +44,14 @@ class llm:
             "role": role,
             "content": content
         })
+        try:
+            with open("context.json", "w", encoding="utf-8") as f:
+                json.dump(self.context, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"Error saving context: {e}")
 
 if __name__ == "__main__":
     assistant = llm(model=config.DEFAULT_MODEL)
     response = assistant.generate("What is the capital of France?")
     print(response)
+    print(f"context:\n{assistant.context}")

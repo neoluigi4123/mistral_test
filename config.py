@@ -1,5 +1,5 @@
 """
-This file contains settings and constants used throughout the project, such as API keys and default model configurations
+This file contains settings and constants used throughout the project, such as API keys and default model configurations.
 """
 
 # Settings
