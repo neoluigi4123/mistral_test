@@ -3,11 +3,20 @@ import llm
 import json
 
 assistant = llm.llm(model=config.DEFAULT_MODEL)
+
+previous_context = None
+
+# Load previous context if available
 try:
     with open("local_data/context.json", "r") as file:
         previous_context = json.load(file)
 except Exception as e:
     print(f"Error reading context: {e}")
+
+if previous_context:
+        print("Previous context loaded...")
+        for messages in previous_context:
+            assistant.add_to_context(messages["role"], messages["content"])
 
 while True:
     prompt = input("> ")
