@@ -45,7 +45,7 @@ class llm:
             "content": content
         })
         try:
-            with open("context.json", "w", encoding="utf-8") as f:
+            with open("gitignore/context.json", "w", encoding="utf-8") as f:
                 json.dump(self.context, f, ensure_ascii=False, indent=2)
         except Exception as e:
             print(f"Error saving context: {e}")

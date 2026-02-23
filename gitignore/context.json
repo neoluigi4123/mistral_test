@@ -1,0 +1,14 @@
+[
+  {
+    "role": "system",
+    "content": "You are a helpful assistant that provides accurate and concise information to the user."
+  },
+  {
+    "role": "user",
+    "content": "tell me a joke"
+  },
+  {
+    "role": "assistant",
+    "content": "Here's one for you:\n\nWhy don’t skeletons fight each other?\n\n*They don’t have the guts!* 😄"
+  }
+]
