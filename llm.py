@@ -28,6 +28,7 @@ class llm:
             model = self.model,
             messages = self.context
         )
+        self.context.append({"role": "assistant", "content": chat_response.choices[0].message.content})
         return chat_response.choices[0].message.content
 
 if __name__ == "__main__":
