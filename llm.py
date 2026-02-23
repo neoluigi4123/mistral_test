@@ -8,6 +8,24 @@ import websearch
 from typing import Any
 from mistralai import Mistral
 
+webSearchTool =     {
+        "type": "function",
+        "function": {
+            "name": "retrieve_web_search_results",
+            "description": "Get web search results for a query",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "The web search query.",
+                    }
+                },
+                "required": ["query"],
+            },
+        },
+    }
+
 class llm:
     def __init__(self, model: str, api_key: str = str(config.MISTRAL_API_KEY)):
         self.model = model
@@ -27,13 +45,27 @@ class llm:
             str: The generated response from the LLM.
         """
         self.add_to_context(prompt)
-        chat_response = self.client.chat.complete(
-            model = self.model,
-            messages = self.context
-        )
-        result = chat_response.choices[0].message.content
-        self.add_to_context(str(result), "assistant")
-        return result
+        
+        result = None
+        while not result.get("content", None):
+            chat_response = self.client.chat.complete(
+                model = self.model,
+                messages = self.context
+                tools = [webSearchTool],
+                tool_choice = "any",
+                parallel_tool_calls = False
+            )
+            result = chat_response.choices[0].message
+            if result.tool_calls:
+                for tool_call in result.tool_calls:
+                    if tool_call.name == "retrieve_web_search_results":
+                        query = tool_call.arguments.get("query", "")
+                        search_results = websearch.web(query)
+                        self.add_to_context(f"Web search results for '{query}': {search_results}", "assistant")
+            
+            elif result.content:
+                self.add_to_context(str(result), "assistant")
+                return result
 
     def add_to_context(self, content: str, role: str = 'user') -> None:
         """Adds contents to the context.
