@@ -11,7 +11,7 @@ This repository contains a simple Python project designed to demonstrate configu
 
 1. **Clone the repository**
    ```bash
-   git clone <repo-url> mistral_test
+   git clone https://github.com/neoluigi4123/mistral_test
    cd mistral_test
    ```
 
