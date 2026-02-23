@@ -4,6 +4,7 @@ This module defines the llm class, which serves as a wrapper around the Mistral 
 import config
 import json
 import os
+import websearch
 from typing import Any
 from mistralai import Mistral
 
