@@ -70,7 +70,7 @@ class llm:
                         search_results = websearch.web(query)
                         
                         # Feed the results back as "user" so the model reads the new information
-                        self.add_to_context(f"Web search results for '{query}': {search_results}", "tool")
+                        self.add_to_context(f"Web search results for '{query}': {search_results}", "user")
             
             elif result.content:
                 self.add_to_context(result.content, "assistant")
