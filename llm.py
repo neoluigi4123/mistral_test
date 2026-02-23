@@ -1,3 +1,6 @@
+"""
+This module defines the llm class, which serves as a wrapper around the Mistral API for generating responses based on prompts. It provides a simple interface for interacting with the Mistral language model.
+"""
 import config
 from mistralai import Mistral
 
