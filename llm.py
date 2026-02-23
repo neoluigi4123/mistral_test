@@ -8,7 +8,7 @@ from typing import Any
 from mistralai import Mistral
 
 class llm:
-    def __init__(self, model: str, api_key: str = config.MISTRAL_API_KEY):
+    def __init__(self, model: str, api_key: str = str(config.MISTRAL_API_KEY)):
         self.model = model
         self.client = Mistral(api_key=api_key)
         self.context: list[Any] = [
