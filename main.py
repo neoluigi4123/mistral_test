@@ -1,3 +1,6 @@
+"""
+This is the main entry point for the application. It initializes the assistant, loads any previous context, and enters a loop to interact with the user.
+"""
 import config
 from llm import llm
 import json
