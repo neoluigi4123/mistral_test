@@ -1,8 +1,8 @@
 import config
-import llm
+from llm import llm
 import json
 
-assistant = llm.llm(model=config.DEFAULT_MODEL)
+assistant = llm(model=config.DEFAULT_MODEL)
 
 previous_context = None
 
