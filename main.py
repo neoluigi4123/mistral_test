@@ -3,6 +3,6 @@ import llm
 
 assistant = llm.llm(model=config.DEFAULT_MODEL)
 while True:
-response = assistant.generate("What is the capital of France?")
+    response = assistant.generate(input("> "))
 
-print(response)
+    print("assistant:\n",response)
