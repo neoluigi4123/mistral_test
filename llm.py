@@ -23,12 +23,12 @@ class llm:
         Returns:
             str: The generated response from the LLM.
         """
-        self.context.append({"role": "user", "content": prompt})
+        self.add_to_context(prompt)
         chat_response = self.client.chat.complete(
             model = self.model,
             messages = self.context
         )
-        self.context.append({"role": "assistant", "content": chat_response.choices[0].message.content})
+        self.add_to_context(str(chat_response.choices[0].message.content), "assistant")
         return chat_response.choices[0].message.content
 
     def add_to_context(self, content: str, role: str = 'user') -> None:
