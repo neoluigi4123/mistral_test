@@ -5,15 +5,17 @@ import config
 import json
 import os
 import websearch
-from typing import Any
+from typing import Any, Dict
 from mistralai import Mistral
+from mistralai.models import Tool, Function 
 
-webSearchTool =     {
-        "type": "function",
-        "function": {
-            "name": "retrieve_web_search_results",
-            "description": "Get web search results for a query",
-            "parameters": {
+webSearchTool = [
+    Tool(
+        type="function",
+        function=Function(
+            name="retrieve_web_search_results",
+            description="Get web search results for a query",
+            parameters={
                 "type": "object",
                 "properties": {
                     "query": {
@@ -23,8 +25,9 @@ webSearchTool =     {
                 },
                 "required": ["query"],
             },
-        },
-    }
+        )
+    )
+]
 
 class llm:
     def __init__(self, model: str, api_key: str = str(config.MISTRAL_API_KEY)):
@@ -47,25 +50,31 @@ class llm:
         self.add_to_context(prompt)
         
         result = None
-        while not result.get("content", None):
+        
+        # Loop until we get a result that has text content
+        while not result or not result.content:
             chat_response = self.client.chat.complete(
                 model = self.model,
-                messages = self.context
-                tools = [webSearchTool],
-                tool_choice = "any",
-                parallel_tool_calls = False
+                messages = self.context,
+                tools = webSearchTool,
+                tool_choice = "auto"  # 'auto' lets the model decide when to answer or use a tool
             )
             result = chat_response.choices[0].message
+            
             if result.tool_calls:
                 for tool_call in result.tool_calls:
-                    if tool_call.name == "retrieve_web_search_results":
-                        query = tool_call.arguments.get("query", "")
+                    if tool_call.function.name == "retrieve_web_search_results":
+                        args = json.loads(tool_call.function.arguments)
+                        query = args.get("query", "")
+                        
                         search_results = websearch.web(query)
-                        self.add_to_context(f"Web search results for '{query}': {search_results}", "assistant")
+                        
+                        # Feed the results back as "user" so the model reads the new information
+                        self.add_to_context(f"Web search results for '{query}': {search_results}", "tool")
             
             elif result.content:
-                self.add_to_context(str(result), "assistant")
-                return result
+                self.add_to_context(result.content, "assistant")
+                return result.content
 
     def add_to_context(self, content: str, role: str = 'user') -> None:
         """Adds contents to the context.
@@ -89,6 +98,6 @@ class llm:
 
 if __name__ == "__main__":
     assistant = llm(model=config.DEFAULT_MODEL)
-    response = assistant.generate("What is the capital of France?")
+    response = assistant.generate("When's the release of the movie in 2026 of the Super Mario Bros the movie 2 aka mario galaxy the movie?")
     print(response)
     print(f"context:\n{assistant.context}")
