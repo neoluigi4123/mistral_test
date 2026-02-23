@@ -1,5 +1,5 @@
 """
-This file contains settings and constants used throughout the project, such as API keys and default model configurations.
+This file contains settings and constants used throughout the project, such as API keys and default model configurations. Usefull for centralizing configuration, normalizing access to variables, and keeping sensitive information out of the main codebase.
 """
 import os
 from dotenv import load_dotenv
