@@ -57,7 +57,3 @@ Contributions are welcome! Please open issues or pull requests on the repository
 ## 📄 License
 
 **MIT License** - See the [LICENSE](LICENSE) file for details.
-
----
-
-Enjoy exploring the Mistral test project!
