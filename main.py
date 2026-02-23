@@ -25,7 +25,9 @@ else:
 
 while True:
     prompt = input("> ")
-    
+    if prompt.startswith("/exit") or prompt.startswith("/bye"):
+        print("exiting...")
+        break
     response = assistant.generate(prompt)
 
     print(f"assistant:\n{response}")
