@@ -31,6 +31,19 @@ class llm:
         self.context.append({"role": "assistant", "content": chat_response.choices[0].message.content})
         return chat_response.choices[0].message.content
 
+    def add_to_context(self, role, content):
+        """Adds contents to the context.
+        Args:
+            role (str): the role of the message(can be: "user","system","assistant").
+            content (str): the content of the message.
+        Returns:
+            None.
+        """
+        self.context.append({
+            "role": role,
+            "content": content
+        })
+
 if __name__ == "__main__":
     assistant = llm(model=config.DEFAULT_MODEL)
     response = assistant.generate("What is the capital of France?")
