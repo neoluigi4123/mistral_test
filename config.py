@@ -3,7 +3,8 @@ This file contains settings and constants used throughout the project, such as A
 """
 import os
 from dotenv import load_dotenv
-load_dotenv() 
+load_dotenv()
+
 # Settings
 DEFAULT_MODEL = "mistral-medium-latest" # "mistral-large-latest" after testing
 
