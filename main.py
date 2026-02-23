@@ -4,7 +4,6 @@ This is the main entry point for the application. It initializes the assistant, 
 import config
 from llm import llm
 import json
-import os
 
 assistant = llm(model=config.DEFAULT_MODEL)
 
