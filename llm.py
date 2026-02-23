@@ -15,6 +15,7 @@ class llm:
                 "content": "You are a helpful assistant that provides accurate and concise information to the user.",
             }
         ]
+
     def generate(self, prompt: str):
         """Generates a response from the LLM based on the given prompt.
         Args:
@@ -28,3 +29,8 @@ class llm:
             messages = self.context
         )
         return chat_response.choices[0].message.content
+
+if __name__ == "__main__":
+    assistant = llm(model=config.DEFAULT_MODEL)
+    response = assistant.generate("What is the capital of France?")
+    print(response)
