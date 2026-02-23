@@ -37,3 +37,7 @@ def web(query: str, num_results: int = 5) -> str:
     else:
         results = DDGS().text(query, max_results=num_results)
         return results
+    
+if __name__ == "__main__":
+    response = web("What is the capital of france ?")
+    print(response)
