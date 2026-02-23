@@ -8,7 +8,12 @@ class llm:
     def __init__(self, model: str, api_key: str = config.MISTRAL_API_KEY):
         self.model = model
         self.client = Mistral(api_key=api_key)
-    
+        self.context = [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that provides accurate and concise information to the user.",
+            }
+        ]
     def generate(self, prompt):
         """Generates a response from the LLM based on the given prompt.
         Args:
@@ -18,11 +23,6 @@ class llm:
         """
         chat_response = self.client.chat.complete(
             model = self.model,
-            messages = [
-                {
-                    "role": "user",
-                    "content": prompt,
-                },
-            ]
+            messages = self.context + [{"role": "user", "content": prompt}]
         )
         return chat_response.choices[0].message.content
