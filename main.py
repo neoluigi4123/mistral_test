@@ -16,7 +16,7 @@ except Exception as e:
 if previous_context:
     print("Previous context loaded...")
     for messages in previous_context:
-        assistant.add_to_context(messages["role"], messages["content"])
+        assistant.add_to_context(messages["content"], messages["role"])
 else:
     print("No previous context found. Starting fresh...")
 
