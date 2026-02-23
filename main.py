@@ -3,6 +3,8 @@ import llm
 
 assistant = llm.llm(model=config.DEFAULT_MODEL)
 while True:
-    response = assistant.generate(input("> "))
+    prompt = input("> ")
+    
+    response = assistant.generate(prompt)
 
     print(f"assistant:\n{response}")

@@ -3,6 +3,7 @@ This module defines the llm class, which serves as a wrapper around the Mistral 
 """
 import config
 import json
+import os
 from typing import Any
 from mistralai import Mistral
 
@@ -45,7 +46,9 @@ class llm:
             "content": content
         })
         try:
-            with open("gitignore/context.json", "w", encoding="utf-8") as f:
+            directory = os.path.dirname("local_data/context.json")
+            os.makedirs(directory, exist_ok=True)
+            with open("local_data/context.json", "w", encoding="utf-8") as f:
                 json.dump(self.context, f, ensure_ascii=False, indent=2)
         except Exception as e:
             print(f"Error saving context: {e}")
