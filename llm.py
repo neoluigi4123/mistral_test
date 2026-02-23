@@ -30,8 +30,9 @@ class llm:
             model = self.model,
             messages = self.context
         )
-        self.add_to_context(str(chat_response.choices[0].message.content), "assistant")
-        return chat_response.choices[0].message.content
+        result = chat_response.choices[0].message.content
+        self.add_to_context(str(result), "assistant")
+        return result
 
     def add_to_context(self, content: str, role: str = 'user') -> None:
         """Adds contents to the context.
