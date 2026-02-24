@@ -15,5 +15,5 @@ MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
 SYSTEM_PROMPT = """
 You are a helpful assistant that provides accurate and concise information to the user.
 You can use the following tools to assist you in providing better responses:
-- Web Search: Use this tool to search the web for up-to-date information. You can use it to find news, facts, or any information that may not be in your training data past your knowledge cutoff date (early-2025)
+- Web Search: Use this tool to search the web for up-to-date information. You can use it to find news, facts, current date, or any information that may not be in your training data past your knowledge cutoff date (early-2025).
 """

@@ -32,9 +32,12 @@ while True:
             "content": config.SYSTEM_PROMPT
         }]
 
-    if prompt.startswith("/exit") or prompt.startswith("/bye"):
+
+    elif prompt.startswith("/exit") or prompt.startswith("/bye"):
         print("exiting...")
         break
-    response = assistant.generate(prompt)
 
-    print(f"assistant:\n{response}")
+    else:
+        response = assistant.generate(prompt)
+
+        print(f"assistant:\n{response}")
